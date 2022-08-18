@@ -1,5 +1,8 @@
 const container = document.querySelector('.container');
-const btn = document.querySelector('.btn')
+const btn = document.querySelector('.btn');
+const rainbowBtn = document.querySelector('.rainbowBtn');
+const standardBtn = document.querySelector('standardBtn');
+
 let gridSize = 15;
 createGrid(gridSize);
 
@@ -35,8 +38,19 @@ container.addEventListener('mouseover', function(e){
         e.target.classList.add('box-active');
       }
 })
+
+
+//Change size of grid, must be between 1 and 64
 btn.addEventListener('click', () => {
     reset();
     gridSize = prompt('Please enter grid size')
-    createGrid(gridSize);
+    if (gridSize > 64 || gridSize < 1){
+        alert('Invalid, Please choose a number between 1 and 64')
+        gridSize = 15;
+        createGrid(gridSize);
+    }
+    else{
+        createGrid(gridSize);
+    }
+    
 })
