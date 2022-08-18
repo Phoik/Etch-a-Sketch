@@ -1,19 +1,42 @@
-const gridWidth = 16;
-const gridHeight = 16;
-
-let totalDiv = gridHeight * gridWidth;
-
 const container = document.querySelector('.container');
+const btn = document.querySelector('.btn')
+let gridSize = 15;
+createGrid(gridSize);
 
-function createBox (size){
-    for (i=0 ; i < totalDiv; i++){
-        const box = document.createElement('div');
-        box.classList.add('box')
-        div.style.width = `${size}px` 
-        div.style.height = `${size}px` 
-        container.appendChild(box);
+//Create Each box
+function createDiv(size){
+    const div = document.createElement('div');
+    div.classList.add('box')
+    div.style.width = `${size}px`
+    div.style.height = `${size}px`
+
+    return div;
+}
+
+//Make all boxes, changing size to fit inside cube.
+function createGrid(gridSize){
+    for (i=0 ; i<gridSize ; i++){
+        for (j=0 ; j<gridSize ; j++){
+            container.appendChild(createDiv(container.clientWidth / gridSize));
+        }
     }
 }
 
-console.log(createBox(64));
+function reset() {
+    while (container.firstChild) {
+      container.removeChild(container.lastChild);
+    }
+    //createGrid(squareSize);
+}
 
+//Change Background color on hover
+container.addEventListener('mouseover', function(e){
+    if (e.target.matches('.box')) {
+        e.target.classList.add('box-active');
+      }
+})
+btn.addEventListener('click', () => {
+    reset();
+    gridSize = prompt('Please enter grid size')
+    createGrid(gridSize);
+})
